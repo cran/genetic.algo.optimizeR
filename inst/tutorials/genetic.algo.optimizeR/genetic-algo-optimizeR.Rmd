@@ -1,0 +1,245 @@
+---
+title: "Genetic Algorthim Optimization"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(genetic.algo.optimizeR)
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(ggrepel)
+knitr::opts_chunk$set(echo = FALSE, collapse = TRUE)
+```
+
+
+## Topic 1
+
+### Exercise 1
+
+*Here's a simple exercise with code chunks provided for entering or editing the answer.*
+
+Use the the function `initialize_population` to generate number of individuals:
+
+```{r two-plus-two, exercise=TRUE}
+population <- genetic.algo.optimizeR::initialize_population(population_size = 10, min = 0, max = 3)
+population
+```
+
+The generated population contains integers within specified range.
+
+### Exercise 2
+
+Given a poputation of these individuals (1, 3, 0), use the the function `evaluate_fitness` to return correct fitness values of all individuals of the popultation:
+
+```{r evaluate_fitness, exercise=TRUE,exercise.lines = 5}
+population = c(1, 3, 0)
+fitness <- genetic.algo.optimizeR::evaluate_fitness(population)
+fitness
+```
+
+The expected fitness of the population should (1, 1, 4) respectively.
+
+```{r view_population_fitness, exercise=TRUE,exercise.lines = 7}
+population = c(1, 3, 0) # Done above
+fitness <- genetic.algo.optimizeR::evaluate_fitness(population) # Done above
+population |>
+  cbind(fitness) |>
+  data.frame() |>
+  magrittr::set_rownames(c("individual_1", "individual_2", "individual_3"))
+```
+
+
+### Exercise 3
+
+*In this next exercise examine the fitness of the given population.*
+
+
+```{r add-function, exercise=TRUE, exercise.lines = 14}
+population = c(1, 3, 0) # Done above
+fitness <- genetic.algo.optimizeR::evaluate_fitness(population) # Done above
+population |>
+  cbind(fitness) |>
+  data.frame() |>
+  ggplot2::ggplot(aes(x = fitness)) +
+  geom_density(fill = "skyblue", color = "steelblue", alpha = 0.7) +
+  geom_point(aes(x = fitness, y = 0), color = "red", size = 3) + # Add red points
+  geom_vline(xintercept = fitness, linetype = "dashed", color = "red") + # Add vertical line
+  ggrepel::geom_text_repel(aes(label = paste0("x=",population)), x = fitness, y = 6, vjust = -0.5, color = "black", size = 5) + # Add text label
+  labs(x = "Fitness", y = "Density", 
+       title = "Density Plot of Fitness") +
+  xlim(0.5, 4.5)
+```
+
+
+## Topic 2
+
+### Exercise 1
+
+*Here's an exercise where the objective is to find the optimal(minimal of `evaluate_fitness`) fitness.*
+
+Recall the initial generated population and fitness(in ascending order):
+
+```{r population_fitness_ascending_order, exercise=TRUE}
+population |>
+  cbind(fitness) |>
+  data.frame() |>
+  dplyr::group_by_all() |>
+  dplyr::arrange(fitness) # in ascending order based on fitness
+```
+
+Select correct number of individuals wit the best fitness: 
+
+```{r selected_parents, exercise=TRUE}
+selected_parents <- genetic.algo.optimizeR::selection(population, fitness, num_parents = 2)
+selected_parents
+```
+
+
+### Exercise 2
+
+Use crossover to generate correct and defined number of offspring:
+```{r offspring, exercise=TRUE}
+offspring <- genetic.algo.optimizeR::crossover(selected_parents, offspring_size = 2)
+offspring
+```
+
+Mutate correctly offspring give a certain rate of mutation:
+
+```{r mutated_offspring, exercise=TRUE}
+mutated_offspring <- genetic.algo.optimizeR::mutation(offspring, mutation_rate = 1) # All offspring will be mutated
+mutated_offspring
+```
+
+Replace correct number of individuals from the previous generation:
+```{r replaced_population, exercise=TRUE}
+replaced_population <- genetic.algo.optimizeR::replacement(population, offspring, num_to_replace = 1)
+replaced_population
+```
+
+
+## Topic 3
+
+### Exercise 1
+
+Optimize this script:
+
+The scirpt below illustrates the process of a genetic algorithm, where individuals are selected, crossed over, and replaced iteratively to improve the population towards finding the optimal solution(i.e. fitting population).
+
+```{r Optimize_this_script, exercise=TRUE, exercise.lines = 40}
+print("Initial Population:")
+print(population)
+
+generation <- 0  # Initialize generation/reputation counter
+
+while (TRUE) {
+  generation <- generation + 1  # Increment generation/reputation count
+  
+  # Evaluate fitness
+  fitness <- evaluate_fitness(population)
+  print("Evaluation:")
+  print(fitness)
+  
+  
+  # Check if the fitness of every individual is close to zero
+  if (all(abs(fitness) <= 0.01)) {
+    print("Termination Condition Reached: All individuals have fitness close to zero.")
+    break
+  }
+  
+  # Selection
+  selected_parents <- selection(population, fitness, num_parents = 2)
+  print("Selection:")
+  print(selected_parents)
+  
+  # Crossover and Mutation
+  offspring <- crossover(selected_parents, offspring_size = 2)
+  mutated_offspring <- mutation(offspring, mutation_rate = 0) #(no mutation in this example)
+  print("Crossover and Mutation:")
+  print(mutated_offspring)
+  
+  # Replacement
+  population <- replacement(population, mutated_offspring, num_to_replace = 1)
+  print("Replacement:")
+  print(population)
+}
+
+print(paste("Total generations/reputations:", generation))
+```
+
+## Topic 4
+
+### Exercise 1
+
+```{r call_libraries4, exercise=TRUE}
+library(genetic.algo.optimizeR)
+library(dplyr)
+library(ggplot2)
+```
+
+After multiple generations of repeating the steps(in the Topic 1 and 2), the genetic algorithm will converge towards an optimal or near-optimal solution. In that example, since it's simple and the solution space is small, we could expect the algorithm to converge relatively quickly towards the optimal solution $x = 2$, where $f(x) = 0$.
+
+Now in case case of large population, find the optimal(minimal of `evaluate_fitness`) fitness using the optimize function(from stats Rpackage).
+
+```{r print-limit_optimal_fitting_individual, exercise=TRUE, exercise.eval=TRUE}
+population =c(1, 3, 0)
+optimal_result <- optimize(genetic.algo.optimizeR::evaluate_fitness, population, maximum = FALSE)
+optimal_fitting_individual <- optimal_result$minimum
+```
+
+Generate some sample fitness data
+```{r print-limit_fitness_data, exercise=TRUE, exercise.eval=TRUE}
+population =c(1, 3, 0)
+optimal_result <- optimize(genetic.algo.optimizeR::evaluate_fitness, population, maximum = FALSE)
+optimal_fitting_individual <- optimal_result$minimum
+fitness_data <- rnorm(1000, mean = optimal_fitting_individual, sd = 1)
+```
+
+
+Create a data frame for the density plot
+
+```{r print-limit_df_density, exercise=TRUE}
+population =c(1, 3, 0)
+optimal_result <- optimize(genetic.algo.optimizeR::evaluate_fitness, population, maximum = FALSE)
+optimal_fitting_individual <- optimal_result$objective
+
+fitness_data <- rnorm(1000, mean = optimal_fitting_individual, sd = 1)
+
+df_density <- data.frame(fitness = fitness_data)
+
+df_density |>
+  data.frame() |>
+  ggplot2::ggplot(aes(x = fitness)) +
+  geom_density(fill = "skyblue", color = "steelblue", alpha = 0.7) +
+  geom_vline(xintercept = optimal_fitting_individual, linetype = "dashed", color = "red") +
+  geom_text(aes(label = paste0("x=",optimal_result$minimum)), x = optimal_result$objective, y = .35, vjust = -0.5, color = "black", size = 5) + # Add text label
+  labs(x = "Fitness", y = "Density", 
+       title = "Density Plot of Fitness with Optimal Population",
+       caption = paste("Optimal Fitting Individual:", round(optimal_result$minimum, 2)))
+```
+
+### Quiz
+
+*Here's a section including number of single or multiple choice questions as a quiz.*
+
+Please answer this questions:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+

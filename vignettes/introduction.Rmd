@@ -1,0 +1,97 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+
+## Overview
+
+This vignette demonstrates how to use the `genetic.algo.optimizeR` package to optimize the function \( f(x) = x^2 - 4x + 4 \) using a genetic algorithm.
+
+## Aim
+
+Optimize the function \( f(x) = x^2 - 4x + 4 \) to find the value of \( x \) that minimizes the function.
+
+## Method
+
+### Initial Population
+
+We start with a population of three individuals: \( x_1 = 1 \), \( x_2 = 3 \), and \( x_3 = 0 \).
+
+```{r setup}
+# devtools::install_github("danymukesha/genetic.algo.optimizeR", upgrade = c("never"),)
+library(genetic.algo.optimizeR)
+```
+
+
+```{r}
+# Initialize population
+population <- initialize_population(population_size = 3, min = 0, max = 3)
+population
+```
+
+### Evaluation
+
+We evaluate the fitness of each individual by calculating \( f(x) \) for each \( x \) value:
+
+```{r}
+# Evaluate fitness
+fitness <- evaluate_fitness(population)
+fitness
+```
+
+### Selection
+
+We select individuals \( x_1 \) and \( x_2 \) as parents for crossover because they have higher fitness.
+
+```{r}
+# Perform selection
+selected_parents <- selection(population, fitness, num_parents = 2)
+selected_parents
+```
+
+### Crossover and Mutation
+
+We perform crossover and mutation on the selected parents to generate offspring: \( x_1' = 1 \), \( x_2' = 3 \).
+
+```{r}
+# Perform crossover
+offspring <- crossover(selected_parents, offspring_size = 2)
+offspring
+
+# Perform mutation
+mutated_offspring <- mutation(offspring, mutation_rate = 0.1)
+mutated_offspring
+```
+
+### Replacement
+
+We replace individual \( x_3 \) with offspring \( x_1' \), maintaining the population size.
+
+```{r}
+# Replace individuals in the population
+new_population <- replacement(population, mutated_offspring, num_to_replace = 1)
+new_population
+```
+
+```{r}
+# Termination
+# Repeat the above steps(from Evaluation) for multiple generations or until a termination condition is met.
+```
+
+## Warp-Up
+
+This vignette demonstrates the usage of the `genetic.algo.optimizeR` package to optimize the given function using a genetic algorithm. Users can follow similar steps to optimize other functions or customize the parameters as needed.
+```

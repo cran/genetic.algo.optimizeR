@@ -1,0 +1,39 @@
+---
+title: "Explaining Graph"
+output: rmarkdown::html_vignette
+toc: true
+vignette: >
+  %\VignetteIndexEntry{Explaining Graph}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "figures/theory-",
+    out.width = "100%"
+)
+```
+
+***Explaining Graph***
+
+``` mermaid
+graph TD;
+    A[Initialize Population] --> B(Evaluate Fitness);
+    B --> C[Selection];
+    C --> D{Termination Condition?};
+    D -->|Yes| E[End];
+    D -->|No| F[Crossover and Mutation];
+    F --> G[Replace Population];
+    G --> B;
+    B -->|Example:| X1(Individual 1: x = 1);
+    B --> X2(Individual 2: x = 3);
+    B --> X3(Individual 3: x = 0);
+    C -->|Example:| Y1(Selected Parents: x = 1, x = 3);
+    F -->|Example:| Z1(Offspring 1: x = 1);
+    F --> Z2(Offspring 2: x = 3);
+```
+![Web capture_8-2-2024_233215_mermaid live](https://github.com/danymukesha/genetic.algo.optimizeR/assets/45208254/a9dc80bc-a464-4151-b9ff-9630310cdf9f)

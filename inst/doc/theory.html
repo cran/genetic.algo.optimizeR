@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Theory</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Theory</h1>
+
+
+<div id="TOC">
+true
+</div>
+
+<p><strong><em>Theory</em></strong></p>
+<ol style="list-style-type: decimal">
+<li>Initialize Population:
+<ul>
+<li>Start with a population of individuals: X1(x=1), X2(x=3),
+X3(x=0).<br />
+(Note: the values are random and the population should be highly
+diversified)</li>
+<li>The space of x value is kept integer type and on range from 0 to
+3,for simplification.</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Evaluate Fitness:
+<ul>
+<li><p>Calculate fitness(<code>f(x)</code>) for each individual:</p>
+<ul>
+<li>X1: f(1) = 1^2 - 4*1 + 4 = 1</li>
+<li>X2: f(3) = 3^2 - 4*3 + 4 = 1</li>
+<li>X3: f(0) = 0^2 - 4*0 + 4 = 4</li>
+</ul>
+<p>Coding the function f(x) in R A quadratic function is a function of
+the form: ax2+bx+c where a≠0</p>
+<p>So for<span class="math inline">\(f(x) = x^2 - 4x +
+4\)</span></p></li>
+</ul></li>
+</ol>
+<p>In R, we write:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">4</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    a <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> c</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>}</span></code></pre></div>
+<p>Plotting the quadratic function f(x) First, we have to choose a
+domain over which we want to plot f(x).</p>
+<p>Let’s try 0 ≤ x ≤ 3:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Define the domain over which we want to plot f(x)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">4</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Define the domain over which we want to plot f(x) and create df data frame</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> x <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">x =</span> _) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">f</span>(x))</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co"># Define the space over which we want to population to be</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>possible_xvalues <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">3</span>, <span class="at">length.out =</span> <span class="dv">4</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co"># Create space data frame</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>space <span class="ot">&lt;-</span> possible_xvalues <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">x =</span> _) <span class="sc">|&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">f</span>(x))</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co"># Calculate fitness inline</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>fitness <span class="ot">&lt;-</span> population<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> population <span class="sc">+</span> <span class="dv">4</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co"># Selected the surviving parents</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>num_parents <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>selected_parents <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>    <span class="fu">order</span>(fitness, <span class="at">decreasing =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>    <span class="fu">head</span>(num_parents)</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co"># Plot f(x) using ggplot</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="co"># Plot the function as a line</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">subset</span>(space, x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)), <span class="at">color =</span> <span class="st">&quot;coral1&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">8</span>) <span class="sc">+</span> <span class="co"># Plot points at x=1 and x=3</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">subset</span>(space, (x <span class="sc">==</span> <span class="dv">0</span>)), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">8</span>) <span class="sc">+</span> <span class="co"># Plot a point at x=0</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="co"># Add horizontal line at y=0</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="co"># Add vertical line at x=0</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" width="70%" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Selection:
+<ul>
+<li><p>Select parents for crossover:</p>
+<ul>
+<li>Y1(x=1), Y2(x=3)</li>
+</ul></li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Plot f(x) using ggplot</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="co"># Plot the function as a line</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">subset</span>(space, x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)), <span class="at">color =</span> <span class="st">&quot;coral1&quot;</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">shape =</span> <span class="dv">8</span>) <span class="sc">+</span> <span class="co"># Plot points at x=1 and x=3</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="co"># Add horizontal line at y=0</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="co"># Add vertical line at x=0</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="co"># Use a minimal theme</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" width="70%" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Crossover and Mutation:
+<ul>
+<li>Generate offspring through crossover and mutation:
+<ul>
+<li>Z1(x=1), Z2(x=3) (no mutation in this example)</li>
+</ul></li>
+</ul></li>
+<li>Replacement:
+<ul>
+<li>Replace individuals in the population:
+<ul>
+<li>Replace X3 with Z1, maintaining the population size.</li>
+</ul></li>
+</ul></li>
+<li>Repeat Steps 2-5 for multiple generations until a termination
+condition is met.</li>
+</ol>
+<p>The optimal/fitting individuals <em>F</em> of a quadratic equation,
+in this case the lowest point on the graph of f(x), is:</p>
+<p><span class="math display">\[
+F\left(\frac{-b}{2a}, f\left(\frac{-b}{2a}\right)\right)
+\]</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>find.fitting <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c) {</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    x_fitting <span class="ot">&lt;-</span> <span class="sc">-</span>b <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> a)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    y_fitting <span class="ot">&lt;-</span> <span class="fu">f</span>(x_fitting)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="fu">c</span>(x_fitting, y_fitting)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>}</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>F <span class="ot">&lt;-</span> <span class="fu">find.fitting</span>(a, b, c)</span></code></pre></div>
+<p>Adding the Fitting to the plot:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Plot f(x) using ggplot</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="co"># Plot the function as a line</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co"># Add horizontal line at y=0</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co"># Add vertical line at x=0</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">x =</span> F[<span class="dv">1</span>], <span class="at">y =</span> F[<span class="dv">2</span>], <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="co"># Plot the vertex</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">x =</span> F[<span class="dv">1</span>], <span class="at">y =</span> F[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;Fitting&quot;</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="co"># Add label next to the vertex</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="co"># Use a minimal theme</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" width="70%" /></p>
+<p><strong><em>Existing alternative solution</em></strong></p>
+<p>Finding the x-intercepts of <strong><em>f(x)</em></strong></p>
+<p>The x-intercepts are the solutions of the quadratic equation f(x) =
+0; they can be found by using the quadratic formula:</p>
+<p><span class="math display">\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\]</span></p>
+<p>The quantity <span class="math inline">\(b2–4ac\)</span> is called
+the discriminant:</p>
+<ul>
+<li>if the discriminant is positive, then <em>f(x)</em> has 2 solutions
+(i.e. x-intercepts).</li>
+<li>if the discriminant is zero, then <em>f(x)</em> has 1 solution
+(i.e. 1 x-intercept).</li>
+<li>if the discriminant is negative, then <em>f(x)</em> has no real
+solutions (i.e. does not intersect the x-axis).</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># find the x-intercepts of f(x)</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>find.roots <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c) {</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    discriminant <span class="ot">&lt;-</span> b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> a <span class="sc">*</span> c</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>    <span class="cf">if</span> (discriminant <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>        <span class="fu">c</span>((<span class="sc">-</span>b <span class="sc">-</span> <span class="fu">sqrt</span>(discriminant)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> a), (<span class="sc">-</span>b <span class="sc">+</span> <span class="fu">sqrt</span>(discriminant)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> a))</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (discriminant <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>        <span class="sc">-</span>b <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> a)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>        <span class="cn">NaN</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>    }</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>}</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>solutions <span class="ot">&lt;-</span> <span class="fu">find.roots</span>(a, b, c)</span></code></pre></div>
+<p>Adding the x-intercepts to the plot:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Plot f(x) using ggplot</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="co"># Plot the function as a line</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co"># Add horizontal line at y=0</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co"># Add vertical line at x=0</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> solutions, <span class="at">y =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(solutions))), <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="co"># Plot x-intercepts</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> solutions, <span class="at">y =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(solutions)), <span class="at">label =</span> <span class="st">&quot;Fitting(x-intercept)&quot;</span>), <span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="co"># Add labels next to x-intercepts</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="co"># Use a minimal theme</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" width="70%" /></p>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
