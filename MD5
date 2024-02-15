@@ -1,4 +1,4 @@
-169978e932f120b1f99f2ad59d1986b0 *DESCRIPTION
+f21c821e40c3f570adff914772696a74 *DESCRIPTION
 87bf06bf642b6c17fa0801e010a418b8 *LICENSE
 5086dd9d617f8a5a92638ced5cdcb91d *NAMESPACE
 2b32764a75d35bec016a32edd2d2bcb2 *NEWS.md
@@ -16,7 +16,7 @@ f99b039a79aa8b1f3f321bd4f6743575 *README.md
 a4f96b1a1477f6a3f8cd6e105bbce7f7 *inst/doc/explaining_graph.html
 0197c7b46e68b31b0aacf8fa9e1685b3 *inst/doc/introduction.R
 a15204875d47ee8bc3e337e7322669d2 *inst/doc/introduction.Rmd
-202a04b52bdf026690697b9a5287bff9 *inst/doc/introduction.html
+7515e95df89df75a7c9d9034b9159fa7 *inst/doc/introduction.html
 b915beac14906a9a593eb74a432fb24d *inst/doc/theory.R
 bddc1440a4043adac81436516ff0732a *inst/doc/theory.Rmd
 b385b8c5e7768203f88b00bed521810e *inst/doc/theory.html
@@ -47,7 +47,7 @@ f7fd5bf3b34d4d0ba2def26a944cc48a *man/mutation.Rd
 44d8539938b2ec6ec7d0dff6915ab3e2 *man/selection.Rd
 960ff0b63ece1d118169b8af11848f46 *tests/testthat.R
 4325c872aadbc8381c2856de3d0c1c30 *tests/testthat/test-initialize_population.R
-82620a6775c90ba2b9cc521b03da3395 *tests/testthat/test-test_crossover.R
+666363446b8f8cbb321fe4fcb8239c12 *tests/testthat/test-test_crossover.R
 90804ea8984f46369dda07c1cd88eb2e *tests/testthat/test-test_evaluate_fitness.R
 5df86b796f5f219dd0c12dc7718c22a5 *tests/testthat/test-test_mutation.R
 47193ce698d32c08a5739a39463d08bd *tests/testthat/test-test_replacement.R
