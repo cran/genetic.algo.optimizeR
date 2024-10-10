@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Genetic algorithm are a class of optimization algorithms inspired by the process of natural selection and genetics. This package is for learning purposes and allows users to optimize various functions or parameters by mimicking biological evolution processes such as selection, crossover, and mutation. Ideal for tasks like machine learning parameter tuning, mathematical function optimization, and solving combinatorial problems.
+Genetic algorithm are a class of optimization algorithms inspired by the process of natural selection and genetics. This package is for learning purposes and allows users to optimize various functions or parameters by mimicking biological evolution processes such as selection, crossover, and mutation. Ideal for tasks like machine learning parameter tuning, mathematical function optimization, and solving an optimization problem that involves finding the best solution in a discrete space.
 }
 \seealso{
 Useful links:

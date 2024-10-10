@@ -10,5 +10,6 @@
 #' @import stringr
 #' @import biocViews
 #' @import magrittr
+#' @importFrom DiagrammeR grViz
 ## usethis namespace: end
 NULL

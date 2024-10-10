@@ -1,50 +1,171 @@
 ---
-title: "Genetic Algorithms Optimization"
+title: "Lecture 1 - Genetic Algorithms (GAs) for function optimization"
 author: "Dany Mukesha"
 date: February 12, 2024
 output: 
   ioslides_presentation:
+    widescreen: true
     template: quarterly-report.html
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Let's get started
 
-# In the morning
+-   What are the genetic algorithms (GAs)?
 
-## Getting up
+## Introduction to GAs
 
-- Turn off alarm
-- Get out of bed
+**Overview:** Genetic algorithms (GAs) are optimization methods inspired
+by natural selection and genetics. They are used to solve optimization
+problems by evolving a population of candidate solutions.
 
-## Breakfast
+**Key concepts:**
 
-- Eat eggs
-- Drink coffee
+-   **Population**: Set of possible solutions.
+-   **Fitness**: A measure of how good each solution is.
+-   **Selection**: Choosing individuals for reproduction.
+-   **Crossover**: Combining parts of two solutions to create a new
+    solution.
+-   **Mutation**: Randomly altering a solution.
 
-# In the evening
+## Problem to solve
 
-## Dinner
+**Objective:** We aim to optimize the quadratic function
+$f(x) = x^2 - 4x + 4$, minimizing the value of $f(x)$.
 
-- Eat spaghetti
-- Drink wine
+**Function:** $$
+f(x) = x^2 - 4x + 4
+$$
 
-----------
+## Initialize population
 
-![picture of spaghetti](images/spaghetti.jpg)
+We begin by creating an initial population of three individuals:
+$x_1 = 1$, $x_2 = 3$, and $x_3 = 0$.
 
-## Going to sleep
+```{r initialization}
+population <- c(1, 3, 0)
+population
+```
 
-- Get in bed
-- Count sheep
+## Evaluate fitness
 
+**Fitness function:** The fitness of an individual is how well it
+minimizes the function $f(x)$.
 
-## Adding an RMarkdown Template
+For each individual, calculate $f(x)$: $$
+f(x) = x^2 - 4x + 4
+$$
 
-This file is what a user will see when they select your template. Make sure that you update the fields in the yaml header. In particular you will want to update the `output` field to whatever format your template requires.
+```{r define_function}
+f <- function(x) {
+    x^2 - 4*x + 4
+}
 
-This is a good place to demonstrate special features that your template provides. Ideally it should knit out-of-the-box, or at least contain clear instructions as to what needs changing.
+# we calculate fitness
+fitness <- f(population)
+fitness
+```
 
-Finally, be sure to remove this message!
+## Visualizing the **fitness function**
+
+Let's plot the quadratic function $f(x)$ to visualize the optimization
+landscape.
+
+```{r visualization, echo=FALSE}
+library(ggplot2)
+
+x <- seq(from = 0, to = 4, length.out = 100)
+y <- f(x)
+
+ggplot(data.frame(x, y), aes(x, y)) +
+  geom_line(color = "blue") +
+  labs(title = "Quadratic function: f(x)", x = "x", y = "f(x)") +
+  theme_minimal()
+```
+
+## Selection
+
+We select individuals for crossover based on fitness. Lower fitness
+values are better in this case, so we select $x_1 = 1$ and $x_2 = 3$.
+
+```{r selection}
+# w select the parents with the best fitness (lowest values)
+selected_parents <- population[order(fitness)][1:2]
+selected_parents
+```
+
+## Crossover and mutation
+
+**Crossover:** Combines the genes (values) of two parents to create
+offspring.
+
+**Mutation:** Introduces random changes to avoid local minima.
+
+```{r}
+# perform crossover (simple example: no change in this step)
+offspring <- selected_parents
+
+# introduce mutation with a small probability (no mutation for this example)
+mutated_offspring <- offspring
+mutated_offspring
+```
+
+## Replacement
+
+We replace one of the individuals in the population with the offspring
+to form a new population.
+
+```{r}
+# replace the least fit individual in the population with one of the offspring
+new_population <- c(selected_parents, population[which.min(fitness)])
+new_population
+```
+
+# Iteration and convergence
+
+The process is repeated over multiple generations. The population
+evolves over time, approaching the optimal solution, to eventually reach
+it.
+
+## Finding the optimal solution
+
+**Theoretical optimal point:**
+
+The minimum of the quadratic function occurs at: $$
+x = \frac{-b}{2a} = 2
+$$ The corresponding function value is $f(2) = 0$.
+
+```{r}
+# calculate the optimal point
+optimal_x <- -(-4) / (2 * 1)
+optimal_y <- f(optimal_x)
+c(optimal_x, optimal_y)
+```
+
+## Conclusion
+
+**Key Takeaways:**
+
+-   Genetic algorithms can be applied to solve optimization problems.
+-   Through selection, crossover, and mutation, a population evolves to
+    find the optimal solution.
+-   This approach is effective for problems where traditional
+    optimization methods might struggle.
+
+**Further Applications:**
+
+-   Neural network optimization.
+-   Solving NP-hard problems like the traveling salesman problem.
+-   Automated design and engineering.
+
+------------------------------------------------------------------------
+
+## Thank You!
+
+Any questions?

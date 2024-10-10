@@ -1,9 +1,9 @@
 ---
-title: "Introduction"
+title: "Introduction to genetic.algo.optimizeR"
 output: rmarkdown::html_vignette
 toc: true
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{Introduction to genetic.algo.optimizeR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -94,4 +94,3 @@ new_population
 ## Warp-Up
 
 This vignette demonstrates the usage of the `genetic.algo.optimizeR` package to optimize the given function using a genetic algorithm. Users can follow similar steps to optimize other functions or customize the parameters as needed.
-```

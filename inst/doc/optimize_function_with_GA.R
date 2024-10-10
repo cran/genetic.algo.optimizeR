@@ -1,19 +1,14 @@
 ## ----include = FALSE----------------------------------------------------------
+library(ggplot2)
 knitr::opts_chunk$set(
     collapse = TRUE,
-    comment = "#>",
-    fig.path = "figures/theory-",
-    out.width = "100%"
+    comment = "#>"
 )
-
-## ----setup, results='hide', warning = FALSE, message = FALSE, include = FALSE----
-library(ggplot2)
-library(dplyr)
 
 ## -----------------------------------------------------------------------------
 population <- c(1, 3, 0)
 
-## -----------------------------------------------------------------------------
+## ----setup--------------------------------------------------------------------
 a <- 1
 b <- -4
 c <- 4
@@ -23,38 +18,56 @@ f <- function(x) {
 
 ## ----initial_poputation, out.width="70%", fig.cap=""--------------------------
 # Define the domain over which we want to plot f(x)
-x <- seq(from = 0, to = 4, length.out = 100)
+x <- seq(from = 0,
+         to = 4,
+         length.out = 100)
 
 # Define the domain over which we want to plot f(x) and create df data frame
 df <- x |>
-    data.frame(x = _) |>
-    dplyr::mutate(y = f(x))
+  data.frame(x = _) |>
+  dplyr::mutate(y = f(x))
 
 # Define the space over which we want to population to be
-possible_xvalues <- seq(from = 0, to = 3, length.out = 4)
+possible_xvalues <- seq(from = 0,
+                        to = 3,
+                        length.out = 4)
 
 # Create space data frame
 space <- possible_xvalues |>
-    data.frame(x = _) |>
-    dplyr::mutate(y = f(x))
+  data.frame(x = _) |>
+  dplyr::mutate(y = f(x))
 
 # Calculate fitness inline
-fitness <- population^2 - 4 * population + 4
+fitness <- population ^ 2 - 4 * population + 4
 
 # Selected the surviving parents
 num_parents <- 2
 selected_parents <- population |>
-    order(fitness, decreasing = FALSE) |>
-    head(num_parents)
+  order(fitness, decreasing = FALSE) |>
+  head(num_parents)
 
 # Plot f(x) using ggplot
 ggplot2::ggplot(df, aes(x = x, y = y)) +
-    geom_line(color = "black") + # Plot the function as a line
-    geom_point(data = subset(space, x %in% c(1, 3)), color = "coral1", size = 3, shape = 8) + # Plot points at x=1 and x=3
-    geom_point(data = subset(space, (x == 0)), color = "blue", size = 3, shape = 8) + # Plot a point at x=0
-    geom_hline(yintercept = 0, linetype = "dashed", color = "blue") + # Add horizontal line at y=0
-    geom_vline(xintercept = 0, linetype = "dashed", color = "blue") + # Add vertical line at x=0
-    theme_minimal()
+  geom_line(color = "black") + # Plot the function as a line
+  geom_point(
+    data = subset(space, x %in% c(1, 3)),
+    color = "coral1",
+    size = 3,
+    shape = 8
+  ) + # Plot points at x=1 and x=3
+  geom_point(
+    data = subset(space, (x == 0)),
+    color = "blue",
+    size = 3,
+    shape = 8
+  ) + # Plot a point at x=0
+  geom_hline(yintercept = 0,
+             linetype = "dashed",
+             color = "blue") + # Add horizontal line at y=0
+  geom_vline(xintercept = 0,
+             linetype = "dashed",
+             color = "blue") + # Add vertical line at x=0
+  theme_minimal()
 
 ## ----selection, out.width="70%", fig.cap=""-----------------------------------
 # Plot f(x) using ggplot
@@ -65,7 +78,7 @@ ggplot(df, aes(x = x, y = y)) +
     geom_vline(xintercept = 0, linetype = "dashed", color = "blue") + # Add vertical line at x=0
     theme_minimal() # Use a minimal theme
 
-## ----fitting, out.width="70%", fig.cap=""-------------------------------------
+## -----------------------------------------------------------------------------
 find.fitting <- function(a, b, c) {
     x_fitting <- -b / (2 * a)
     y_fitting <- f(x_fitting)
@@ -83,8 +96,7 @@ ggplot(df, aes(x = x, y = y)) +
     geom_text(x = F[1], y = F[2], label = "Fitting", vjust = -1, color = "red", size = 5) + # Add label next to the vertex
     theme_minimal() # Use a minimal theme
 
-## ----function_intercepts------------------------------------------------------
-# find the x-intercepts of f(x)
+## -----------------------------------------------------------------------------
 find.roots <- function(a, b, c) {
     discriminant <- b^2 - 4 * a * c
     if (discriminant > 0) {
